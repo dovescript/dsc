@@ -1,0 +1,99 @@
+package ds.global {
+    class Map {
+        native function Map();
+
+        native function get length():Number;
+        native function get isEmpty():Boolean;
+        native function clear():void;
+
+        function setMaps(...maps):Map {
+            for each (var map in maps) {
+                if (map is Map)
+                    for each (const [k, v] in Map(map)) this.set(k, v);
+                else if (map is WeakMap)
+                    for each (const [k, v] in WeakMap(map)) this.set(k, v);
+                else if (map is Set)
+                    for each (const v in Set(map)) this.set(v, true);
+                else if (map is WeakSet)
+                    for each (const v in WeakSet(map)) this.set(v, true);
+                else if (!isAbsent(map))
+                    for (const k in map) this.set(k, map[k]);
+            }
+            return this;
+        }
+
+        native function get(key:*):*;
+        native function set(key:*, value:*):Map;
+        native function delete(key:*):Boolean;
+        native function has(key:*):Boolean;
+
+        function entries():Array {
+            const r = [];
+            for each (var [k, v] in this) r.push([k, v]);
+            return r;
+        }
+        function keys():Array {
+            const r = [];
+            for each (var k in this) r.push(k);
+            return r;
+        }
+        function values():Array {
+            const r = [];
+            for each (var [, v] in this) r.push(v);
+            return r;
+        }
+
+        native Proxy function nextNameIndex(index:Number):Number;
+        native Proxy function nextName(index:Number):*;
+        native Proxy function nextValue(index:Number):[*, *];
+    }
+
+    class WeakMap {
+        native function WeakMap();
+
+        native function get length():Number;
+        native function get isEmpty():Boolean;
+        native function clear():void;
+
+        function setMaps(...maps):WeakMap {
+            for each (var map in maps) {
+                if (map is Map)
+                    for each (const [k, v] in Map(map)) this.set(k, v);
+                else if (map is WeakMap)
+                    for each (const [k, v] in WeakMap(map)) this.set(k, v);
+                else if (map is Set)
+                    for each (const v in Set(map)) this.set(v, true);
+                else if (map is WeakSet)
+                    for each (const v in WeakSet(map)) this.set(v, true);
+                else if (!isAbsent(map))
+                    for (const k in map) this.set(k, map[k]);
+            }
+            return this;
+        }
+
+        native function get(key:*):*;
+        native function set(key:*, value:*):WeakMap;
+        native function delete(key:*):Boolean;
+        native function has(key:*):Boolean;
+
+        function entries():Array {
+            const r = [];
+            for each (var [k, v] in this) r.push([k, v]);
+            return r;
+        }
+        function keys():Array {
+            const r = [];
+            for each (var k in this) r.push(k);
+            return r;
+        }
+        function values():Array {
+            const r = [];
+            for each (var [, v] in this) r.push(v);
+            return r;
+        }
+
+        native Proxy function nextNameIndex(index:Number):Number;
+        native Proxy function nextName(index:Number):*;
+        native Proxy function nextValue(index:Number):[*, *];
+    }
+}

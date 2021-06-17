@@ -1,0 +1,66 @@
+package ds.global {
+    dynamic class Error {
+        native function Error(message:String = '', id:Number = 0);
+
+        native function get message():String;
+        native function set message(value);
+
+        native function get errorID():Number;
+
+        native function getStackTrace():String;
+
+        function get name():String
+            this.constructor.name;
+
+        override function toString():String
+            message || this.constructor.name;
+    }
+
+    dynamic class ArgumentError extends Error {
+        function ArgumentError(message:String = '') {
+            super(message);
+        }
+    }
+
+    dynamic class EOFError extends Error {
+        function EOFError(message:String = '') {
+            super(message);
+        }
+    }
+
+    dynamic class RangeError extends Error {
+        function RangeError(message:String = '') {
+            super(message);
+        }
+    }
+
+    dynamic class ReferenceError extends Error {
+        function ReferenceError(message:String = '') {
+            super(message);
+        }
+    }
+
+    dynamic class SecurityError extends Error {
+        function SecurityError(message:String = '') {
+            super(message);
+        }
+    }
+
+    dynamic class SyntaxError extends Error {
+        function SyntaxError(message:String = '') {
+            super(message);
+        }
+    }
+
+    dynamic class TypeError extends Error {
+        function TypeError(message:String = '') {
+            super(message);
+        }
+    }
+
+    dynamic class VerifyError extends Error {
+        function VerifyError(message:String = '') {
+            super(message);
+        }
+    }
+}

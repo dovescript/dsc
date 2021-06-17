@@ -1,0 +1,40 @@
+package ds.global {
+    /**
+     * Numeric range defined by two values.
+     */
+    [Primitive]
+    final class Range {
+        const start:*;
+        const end:*;
+        const step:*;
+        private const _decrease:Boolean;
+
+        function get from():* start;
+        function get to():* end;
+
+        function Range(start:* = 0, end:* = 0, step:* = undefined) {
+            var type = isAbsent(start) ? Number : start.constructor;
+            this.start = type(start);
+            this.end = type(end);
+
+            if (isAbsent(step))
+                this.step = this.start <= this.end ? type(1) : type(-1);
+            else this.step = type(step);
+
+            _decrease = this.step < type(0);
+        }
+
+        Proxy static function apply([ start, end, step ]:Array):Range {
+            if (start is String) {
+                var split = String(start).split('-');
+                start = split[0].charCodeAt(0);
+                end = split[1].charCodeAt(0) + 1;
+                step = 1;
+            }
+            return new Range(start, end, step);
+        }
+
+        Proxy function hasProperty(value:*):Boolean
+            _decrease ? value <= start && value > end : value >= start && value < end;
+    }
+}

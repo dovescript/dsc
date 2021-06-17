@@ -1,0 +1,4 @@
+package ds.global {
+    final class Generator {
+    }
+}

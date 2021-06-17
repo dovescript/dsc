@@ -1,0 +1,30 @@
+package ds.global {
+    import ds.internals.*;
+
+    final class Namespace {
+        const prefix:String?;
+        const uri:String;
+
+        function Namespace(arg1:* = undefined, arg2:* = undefined) {
+            if (!isAbsent(arg2)) {
+                prefix = String(arg1);
+                if (!isXMLName(prefix))
+                    prefix = undefined;
+                uri = Namespace(arg2).uri;
+            }
+            else if (!isAbsent(arg1))
+                uri = Namespace(arg1).uri;
+            else prefix = undefined, uri = '';
+
+            uri ||= '';
+            if (!uri.length) {
+                if (prefix)
+                    InternalErrors.throwError('xmlPrefixMustBeEmpty', ArgumentError);
+                else prefix = undefined;
+            }
+        }
+
+        override function toString():String
+            uri;
+    }
+}

@@ -1,0 +1,6 @@
+package ds.global {
+    class Promise {
+        native function Promise(handlerFn:Function);
+        native static function all(list:Array):*;
+    }
+}

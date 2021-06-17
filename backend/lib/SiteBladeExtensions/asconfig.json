@@ -1,0 +1,10 @@
+{
+    "type": "lib",
+    "config": "air",
+    "compilerOptions": {
+        "source-path": ["src"],
+        "include-sources": ["src"],
+        "output": "build/SiteBladeExtensions.swc",
+        "warnings": false
+    }
+}

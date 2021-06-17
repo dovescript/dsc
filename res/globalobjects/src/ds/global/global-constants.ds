@@ -1,0 +1,19 @@
+package ds.global {
+    /**
+     * A special value that applies to untyped or nullable variables
+     * that have not been initialized.
+     */
+    const undefined = void 0;
+
+    /**
+     * A special member of the Number data type that represents a value that is "not a number".
+     */
+    const NaN = 0 / 0;
+
+    /**
+     * A special value representing positive Infinity.
+     */
+    const Infinity = 1 / 0;
+
+    namespace Proxy = 'http://dovescript.org/globalobjects/ds/global/Proxy';
+}

@@ -1,0 +1,42 @@
+{
+    "allowDuplicates": true,
+    "foreign": {
+        "ds.global.Array": {
+            "foreignName": "ds_global_Array",
+            "instance": {
+                "push": {
+                    "optimizations": {
+                        "*": "_pushValue"
+                    }
+                }
+            }
+        },
+        "ds.global.Class": {
+            "foreignName": "ds_global_Class"
+        },
+        "ds.global.CharArray": {
+            "foreignName": "ds_global_CharArray",
+            "instance": {
+                "write": {
+                    "optimizations": {
+                        "Char": "_writeChar",
+                        "String": "_writeString"
+                    }
+                }
+            }
+        },
+        "ds.global.Object": {
+            "foreignName": "ds_global_Object"
+        },
+        "ds.global.String": {
+            "foreignName": "ds_global_String",
+            "instance": {
+                "fromCharCode": {
+                    "optimizations": {
+                        "Char": "_fromSingleCharCode"
+                    }
+                }
+            }
+        }
+    }
+}

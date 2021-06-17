@@ -1,0 +1,8 @@
+package ds.global {
+    namespace Math {
+        native function random(range:Range? = null):Number;
+        native function pow(a:Number, b:Number):Number;
+        native function min(...arguments):Number;
+        native function max(...arguments):Number;
+    }
+}

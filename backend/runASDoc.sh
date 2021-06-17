@@ -1,0 +1,1 @@
+aasdoc -o=build/doc -warnings=false --library-path=lib --doc-sources src/dsc --source-path=src

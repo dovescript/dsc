@@ -1,0 +1,34 @@
+package ds.global {
+    final class RegExp {
+        const source:String;
+        var lastIndex:Number;
+        private var _flags:Flags;
+
+        native function RegExp(pattern:String, flags:String = '', references:Map? = null);
+
+        function get global():Boolean 'global' in _flags;
+        function get multiline():Boolean 'multiline' in _flags;
+        function get ignoreCase():Boolean 'ignoreCase' in _flags;
+        function get ignoreWhiteSpace():Boolean 'ignoreWhiteSpace' in _flags;
+
+        native function exec(str:String):?RegExpMatch;
+
+        function test(str:String):Boolean !!exec(str);
+
+        override function toString():String
+            '/$1/$2'.apply(source, (global ? 'g' : '') + (ignoreCase ? 'i' : '') + (multiline ? 'm' : '') + (ignoreWhiteSpace ? 'x' : ''));
+
+        [Flags]
+        private enum Flags {
+            const IGNORE_CASE = 1;
+            const GLOBAL = 2;
+            const MULTILINE = 4;
+            const IGNORE_WHITE_SPACE = 8;
+        }
+    }
+
+    final class RegExpMatch extends Array {
+        const input:String;
+        const index:Number;
+    }
+}

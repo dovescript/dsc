@@ -1,0 +1,98 @@
+package ds.global {
+    [Primitive]
+    final class String {
+        native function String(str:Object = '');
+
+        native static function fromCharCode(...arguments):String;
+        native static private function _fromSingleCharCode(cv:Char):String;
+
+        native Proxy function nextNameIndex(index:Number):Number;
+        native Proxy function nextValue(index:Number):String;
+
+        native function equivalenceTo(arg:String):Number;
+
+        function apply(...arguments):String {
+            var dict:* = arguments.length == 1 && (arguments[0].constructor == Object || arguments[0] is Map) ? arguments[0] : null;
+            if (dict)
+                return replace(/\$([a-zA-Z0-9]+|\$)/, function(_, s) s == '$' ? '$' : (dict is Map ? dict.get(s) : dict[s]));
+            else return replace(/\$([0-9]+|\$)/, function(_, s) s == '$' ? '$' : arguments[Number(s) - 1]);
+        }
+
+        native function get length():Number;
+
+        native function slice(fromIndex:Number = 0, toIndex:Number = Infinity):String;
+        native function charCodeAt(index:Number):Char;
+
+        function charAt(index:Number):String {
+            return index < length ? String.fromCharCode(charCodeAt(index)) : '';
+        }
+
+        Proxy function getProperty(index:Number):String charAt(index);
+
+        native function localeCompare(other:String, ...values):Number;
+
+        function startsWith(...arguments):Boolean
+            arguments.some(function(str) length < str.length ? false : slice(0, str.length) == str);
+
+        function endsWith(...arguments):Boolean
+            arguments.some(function(str) length < str.length ? false : slice(length - str.length) == str);
+
+        native function match(regex:RegExp):?RegExpMatch;
+
+        function substr(index:Number, length:Number = Infinity):String {
+            if (index < 0) index += this.length;
+            return slice(index, index + length);
+        }
+
+        function substring(fromIndex:Number = 0, toIndex:Number = Infinity):String {
+            if (fromIndex > toIndex) {
+                var k = fromIndex;
+                fromIndex = toIndex;
+                toIndex = k;
+            }
+            return slice(fromIndex, toIndex);
+        }
+
+        native function indexOf(search:String, fromIndex:Number = 0):Number;
+        native function lastIndexOf(search:String, fromIndex:Number = 0):Number;
+
+        function repeat(times:Number):String {
+            var r = new CharArray;
+            for each (var index:Number in Range(0, times))
+                r.write(this);
+            return r.toString();
+        }        
+
+        function trim():String {
+            var array = new CharArray(this);
+            while (array.hasRemaining) {
+                if (array[0].getCategory() == 'spaceSeparator')
+                    ++array.position;
+                else break;
+            }
+            var from:Number = array.position;
+            array.position = this == '' ? 0 : length - 1;
+            while (array.position >= 0) {
+                if (array[0].getCategory() != 'spaceSeparator')
+                    break;
+                if (array.position != 0)
+                    --array.position;
+            }
+            return slice(from, array.position);
+        }
+
+        native function replace(search:Object, repl:Object):String;
+        native function split(sep:Object, limit:Number = Infinity):Array;
+
+        override function toString():String this;
+
+        native function toUpperCase():String;
+        native function toLowerCase():String;
+
+        native Proxy function add(arg:String):String;
+        native Proxy function lessThan(arg:String):Boolean;
+        native Proxy function greaterThan(arg:String):Boolean;
+        native Proxy function lessThanOrEquals(arg:String):Boolean;
+        native Proxy function greaterThanOrEquals(arg:String):Boolean;
+    }
+}

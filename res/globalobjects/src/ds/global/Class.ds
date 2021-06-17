@@ -1,0 +1,5 @@
+package ds.global {
+    dynamic final class Class {
+        native function get name():String;
+    }
+}

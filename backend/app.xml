@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<application xmlns='http://ns.adobe.com/air/application/32.0'>
+    <id>com.recoyx.dsc</id>
+    <versionNumber>0.1.0</versionNumber>
+    <filename>dsc</filename>
+    <name>DoveScript Compiler</name>
+    <initialWindow>
+        <title>DoveScript Compiler</title>
+        <content>build/dsc.swf</content>
+        <visible>false</visible>
+    </initialWindow>
+    <!--
+    <icon> 
+        <image16x16>icons/small-icon.png</image16x16> 
+        <image32x32>icons/medium-icon.png</image32x32> 
+        <image48x48>icons/big-icon.png</image48x48> 
+        <image128x128>icons/bigger-icon.png</image128x128>  
+    </icon>
+    -->
+</application>

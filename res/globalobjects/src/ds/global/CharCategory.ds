@@ -1,0 +1,162 @@
+package ds.global {
+    enum CharCategory {
+        const CONTROL_OTHER;
+        const FORMAT_OTHER;
+        const PRIVATE_USE_OTHER;
+        const SURROGATE_OTHER;
+        const NOT_ASSIGNED_OTHER;
+
+        const LOWERCASE_LETTER = 16;
+        const MODIFIER_LETTER;
+        const OTHER_LETTER;
+        const TITLECASE_LETTER;
+        const UPPERCASE_LETTER;
+
+        const COMBINING_SPACING_MARK = 32;
+        const ENCLOSING_MARK;
+        const NON_SPACING_MARK;
+
+        const DECIMAL_NUMBER = 64;
+        const LETTER_NUMBER;
+        const OTHER_NUMBER;
+        const CONNECTOR_PUNCTUATION;
+        const DASH_PUNCTUATION;
+        const OPEN_PUNCTUATION;
+        const CLOSE_PUNCTUATION;
+        const INITIAL_QUOTE_PUNCTUATION;
+        const FINAL_QUOTE_PUNCTUATION;
+        const OTHER_PUNCTUATION;
+        const CURRENCY_SYMBOL;
+        const MODIFIER_SYMBOL;
+        const MATH_SYMBOL;
+        const OTHER_SYMBOL;
+        const LINE_SEPARATOR;
+        const PARAGRAPH_SEPARATOR;
+        const SPACE_SEPARATOR;
+
+        const OTHER = 128;
+        const LETTER;
+        const MARK;
+        const NUMBER;
+        const PUNCTUATION;
+        const SYMBOL;
+        const SEPARATOR;
+
+        native static function fromCharCode (cv:Char):CharCategory;
+
+        // CharCategory() can be invoked to resolve General Category
+        // abbreviations, such as Pc.
+        Proxy static function apply (arguments:Array):?CharCategory {
+            var str = String(arguments[0]).toUpperCase();
+            return (str in abbreviationToConstant ? abbreviationToConstant[str] : null) || defaultConversion(str);
+        }
+
+        /**
+         * Indicates whether General Category is in Other group.
+         */
+        function get isOther ():Boolean
+            !(this.valueOf() >> 4) || this == "other";
+
+        /**
+         * Indicates whether General Category is in Letter group.
+         */
+        function get isLetter ():Boolean
+            this.valueOf() >> 4 === 1 || this == "letter";
+
+        /**
+         * Indicates whether General Category is in Mark group.
+         */
+        function get isMark ():Boolean
+            this.valueOf() >> 5 === 1 || this == "mark";
+
+        /**
+         * Indicates whether General Category is in Number group.
+         */
+        function get isNumber ():Boolean
+            (this.valueOf() >> 6 === 1 && this.valueOf() < CONNECTOR_PUNCTUATION.valueOf()) || this == "number";
+
+        /**
+         * Indicates whether General Category is in Punctuation group.
+         */
+        function get isPunctuation ():Boolean
+            (this.valueOf() >> 7 === 1 && this.valueOf() > OTHER_NUMBER.valueOf() && this.valueOf() < CURRENCY_SYMBOL.valueOf()) || this == "punctuation";
+
+        /**
+         * Indicates whether General Category is in Symbol group.
+         */
+        function get isSymbol ():Boolean
+            (this.valueOf() >> 8 === 1 && this.valueOf() > OTHER_PUNCTUATION.valueOf() && this.valueOf() < LINE_SEPARATOR.valueOf()) || this == "symbol";
+
+        /**
+         * Indicates whether General Category is in Separator group.
+         */
+        function get isSeparator ():Boolean
+            (this.valueOf() >> 9 === 1 && this.valueOf() > OTHER_SYMBOL.valueOf()) || this == "separator";
+
+        function testCharCode (cv:Char):Boolean {
+            if (!(this.valueOf() & 128))
+                return CharCategory.fromCharCode(cv) == this;
+            return CharCategory.fromCharCode(cv) in this;
+        }
+
+        Proxy function hasProperty (category:CharCategory):Boolean {
+            if (!(this.valueOf() & 128))
+                return category == this;
+            switch (this) {
+                case "other":
+                    return category.isOther;
+                case "letter":
+                    return category.isLetter;
+                case "mark":
+                    return category.isMark;
+                case "number":
+                    return category.isNumber;
+                case "separator":
+                    return category.isSeparator;
+                case "punctuation":
+                    return category.isPunctuation;
+            }
+            return category.isSymbol;
+        }
+    }
+
+    internal const abbreviationToConstant:* = {
+        C: CharCategory.OTHER,
+        CC: CharCategory.CONTROL_OTHER,
+        CF: CharCategory.FORMAT_OTHER,
+        CO: CharCategory.PRIVATE_USE_OTHER,
+        CS: CharCategory.SURROGATE_OTHER,
+        CN: CharCategory.NOT_ASSIGNED_OTHER,
+        L: CharCategory.LETTER,
+        LL: CharCategory.LOWERCASE_LETTER,
+        LM: CharCategory.MODIFIER_LETTER,
+        LO: CharCategory.OTHER_LETTER,
+        LT: CharCategory.TITLECASE_LETTER,
+        LU: CharCategory.UPPERCASE_LETTER,
+        M: CharCategory.MARK,
+        MC: CharCategory.COMBINING_SPACING_MARK,
+        ME: CharCategory.ENCLOSING_MARK,
+        MN: CharCategory.NON_SPACING_MARK,
+        N: CharCategory.NUMBER,
+        ND: CharCategory.DECIMAL_NUMBER,
+        NL: CharCategory.LETTER_NUMBER,
+        NO: CharCategory.OTHER_NUMBER,
+        P: CharCategory.PUNCTUATION,
+        PC: CharCategory.CONNECTOR_PUNCTUATION,
+        PD: CharCategory.DASH_PUNCTUATION,
+        PS: CharCategory.OPEN_PUNCTUATION,
+        PE: CharCategory.CLOSE_PUNCTUATION,
+        PI: CharCategory.INITIAL_QUOTE_PUNCTUATION,
+        PF: CharCategory.FINAL_QUOTE_PUNCTUATION,
+        PO: CharCategory.OTHER_PUNCTUATION,
+        S: CharCategory.SYMBOL,
+        SC: CharCategory.CURRENCY_SYMBOL,
+        SK: CharCategory.MODIFIER_SYMBOL,
+        SM: CharCategory.MATH_SYMBOL,
+        SO: CharCategory.OTHER_SYMBOL,
+        Z: CharCategory.SEPARATOR,
+        ZL: CharCategory.LINE_SEPARATOR,
+        ZP: CharCategory.PARAGRAPH_SEPARATOR,
+        ZS: CharCategory.SPACE_SEPARATOR,
+    };
+}

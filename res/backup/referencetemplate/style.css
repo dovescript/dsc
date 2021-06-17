@@ -1,0 +1,354 @@
+/* Global */
+
+.JavaDocTheme > body {
+    font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
+    font-size: 14px;
+}
+
+.JavaDocTheme h1,
+.JavaDocTheme h2,
+.JavaDocTheme h3,
+.JavaDocTheme h4 {
+    font-weight: bold;
+}
+
+.JavaDocTheme.bg-white > body {
+    color: #353833;
+}
+
+.JavaDocTheme.bg-dark {
+    background: #666;
+}
+
+.JavaDocTheme.bg-dark > body {
+    color: #eee;
+}
+
+/* Anchor */
+
+.JavaDocTheme .navbar a:hover,
+.JavaDocTheme .navbar a:active {
+    color: #f8981d;
+}
+
+.JavaDocTheme a {
+    color: #3a6894;
+    text-decoration: none;
+}
+
+.JavaDocTheme a:hover,
+.JavaDocTheme a:active {
+    color: #f8981d;
+    text-decoration: none;
+}
+
+/* Button */
+
+.JavaDocTheme .btn {
+    border: none;
+    border-radius: 0;
+    color: #eee;
+    font-size: 12px !important;
+    text-transform: uppercase;
+}
+
+.JavaDocTheme .btn-link,
+.JavaDocTheme .btn-link:hover,
+.JavaDocTheme .btn-link:active {
+    color: #333;
+}
+
+.JavaDocTheme .btn:active,
+.JavaDocTheme .btn:focus {
+    box-shadow: none !important;
+    outline: 1px solid #6af;;
+}
+
+.JavaDocTheme .btn-primary {
+    background: #3d6a87;
+}
+
+.JavaDocTheme .btn-secondary {
+    background: #333;
+}
+
+.JavaDocTheme .btn-primary:active,
+.JavaDocTheme .btn-secondary:active {
+    background: #222 !important;
+}
+
+/* Card */
+
+.JavaDocTheme .card {
+    border-radius: 0;
+}
+
+.JavaDocTheme .card-header {
+    background: none;
+    border-bottom: none;
+    font-style: italic;
+}
+
+.JavaDocTheme.bg-white .card {
+    background: #f8f8f8;
+    border: 1px solid #ededed;
+}
+
+.JavaDocTheme .card-img-top {
+    background: #5e5e5e;
+}
+
+/* Code */
+
+.JavaDocTheme code,
+.JavaDocTheme pre {
+    color: #000;
+    font-family: 'Lucida Console';
+    font-size: 12px;
+}
+
+.JavaDocTheme pre {
+    background: #bebebe;
+    border: none;
+    border-radius: 0;
+    padding: 10px;
+}
+
+/* Form > TextInput */
+
+.JavaDocTheme .col-form-label {
+    font-size: 12px;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-transform: uppercase;
+}
+
+.JavaDocTheme .form-control {
+    height: 20px;
+}
+
+.JavaDocTheme .form-control {
+    background: #fff;
+    color: #000;
+    border-left: 2px solid #222;
+    border-top: 2px solid #222;
+    border-right: 2px solid #888;
+    border-bottom: 2px solid #888;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 8px;
+    box-shadow: none;
+}
+
+.JavaDocTheme .form-control::placeholder,
+.JavaDocTheme .form-control::-moz-placeholder,
+.JavaDocTheme .form-control::-webkit-input-placeholder {
+    color: #545454;
+}
+
+.JavaDocTheme .form-control:active,
+.JavaDocTheme .form-control:focus {
+    border-radius: 5px;
+    outline: 1px solid #fff;
+    outline-offset: 0;
+    box-shadow: none;
+}
+
+/* Form > Reset */
+
+.JavaDocTheme .form-control-reset {
+    background: url('./res/img/x.png');
+    background-size: 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    width: 12px;
+    height: 12px;
+}
+
+.JavaDocTheme .form-control-reset,
+.JavaDocTheme .form-control-reset:hover,
+.JavaDocTheme .form-control-reset:active,
+.JavaDocTheme .form-control-reset:focus {
+    border: none;
+    outline: none;
+}
+
+/* Form > Search */
+
+.JavaDocTheme .form-control-search {
+    background: url('./res/img/glass.png');
+    background-size: 14px;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px;
+}
+
+.JavaDocTheme .form-control-search,
+.JavaDocTheme .form-control-search:hover,
+.JavaDocTheme .form-control-search:active,
+.JavaDocTheme .form-control-search:focus {
+    border: none;
+    outline: none;
+}
+
+/* Headers */
+
+h1 {
+    font-size: 32px;
+    margin: 10px 0;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+h3 {
+    font-size: 20px;
+    margin: 8px 0;
+}
+
+/* Navbar */
+
+.JavaDocTheme .navbar {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    text-transform: uppercase;
+}
+
+.JavaDocTheme .navbar-brand {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.JavaDocTheme .navbar .nav-item {
+    font-size: 12px;
+    padding: 2px 6px;
+}
+
+.JavaDocTheme .navbar .nav-link {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.JavaDocTheme .navbar .nav-link:hover,
+.JavaDocTheme .navbar .nav-link:active {
+    color: #f8981d;
+}
+
+.JavaDocTheme .navbar {
+    background: #4d7a97 !important;
+}
+
+.JavaDocTheme .navbar .nav-item,
+.JavaDocTheme .navbar .nav-link {
+    color: #fff;
+}
+
+.JavaDocTheme .navbar .nav-link:hover {
+    color: #fff;
+}
+
+.JavaDocTheme .navbar .nav-item[aria-current=page] {
+    background: #f8981d;
+}
+
+.JavaDocTheme .navbar .nav-item[aria-current=page] .nav-link {
+    color: #253441;
+}
+
+.JavaDocTheme .subNavbar {
+    background: #dee3e9;
+    overflow: hidden;
+    font-size: 12px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+#appNavbar .subNavbar #navListSearch {
+    float: right;
+    padding: 2px 6px;
+    padding-bottom: 4px;
+}
+
+#appNavbar .subNavbar #navSearchIcon {
+    position: relative;
+    left: 21px;
+    top: 1px;
+}
+
+#appNavbar .subNavbar #navSearch {
+    display: inline-block;
+    width: 200px;
+    padding-left: 19px;
+    padding-right: 19px;
+    margin-top: 1px;
+}
+
+#appNavbar .subNavbar #searchReset {
+    position: relative;
+    left: -19px;
+    top: 1px;
+}
+
+/* Table */
+
+.JavaDocTheme .summaryTable {
+    border: none;
+    width: 100%;
+}
+
+.JavaDocTheme .summaryTable th,
+.JavaDocTheme .summaryTable td {
+    border: none;
+}
+
+.JavaDocTheme .summaryTable tr {
+    border-left: 2px solid #bbb;
+    border-right: 2px solid #bbb;
+}
+
+.JavaDocTheme .summaryTable tr:first-child {
+    border-top: 2px solid #bbb;
+}
+
+.JavaDocTheme .summaryTable tr:last-child {
+    border-bottom: 2px solid #bbb;
+}
+
+.JavaDocTheme .summaryTable th {
+    font-weight: bold;
+}
+
+.JavaDocTheme .summaryTable th,
+.JavaDocTheme .summaryTable td {
+    padding: 12px 3px 12px 6px;
+}
+
+.JavaDocTheme .summaryTable tr:nth-child(odd) {
+    background: #eeeeef;
+    text-align: left;
+}
+
+.JavaDocTheme .summaryTableItemName {
+    font-weight: bold;
+}
+
+/* Table > Caption */
+
+.JavaDocTheme .summaryTable caption {
+    background: #f8981d;
+    color: #000;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0;
+    padding: 6px 12px;
+}
+
+
+/* Main content */
+
+#content {
+    margin: 26px 0;
+}

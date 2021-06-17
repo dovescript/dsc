@@ -1,0 +1,8 @@
+package ds.global {
+    final class Observable {
+        native function Observable(value:*);
+        native function get value():*;
+        native function set value(value);
+        native function subscribe(fn:Function):Function;
+    }
+}

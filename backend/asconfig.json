@@ -1,0 +1,28 @@
+{
+    "type": "app",
+    "config": "air",
+    "application": "app.xml",
+    "mainClass": "dsc.commandline.Application",
+    "compilerOptions": {
+        "source-path": ["src"],
+        "library-path": ["lib"],
+        "output": "build/dsc.swf",
+        "warnings": false,
+        "debug": true
+    },
+    "airOptions": {
+        "files": [
+            { "file": "../res/lang/en_US", "path": "res/lang/en_US" },
+            { "file": "../res/globalobjects/src", "path": "res/globalobjects/src" },
+            { "file": "../res/globalobjects/dovescript.json", "path": "res/globalobjects/dovescript.json" }
+        ],
+        "signingOptions": {
+            "tsa": "none",
+            "storetype": "pkcs12",
+            "keystore": "../frontend/lib/cert.p12"
+        },
+        "windows": {
+            "output": "../frontend/lib/Windows_Bundle"
+        }
+    }
+}

@@ -1,0 +1,1 @@
+adt -certificate -cn SelfSign -ou QE -o "Example, Co" -c US 2048-RSA ../frontend/lib/cert.p12 123

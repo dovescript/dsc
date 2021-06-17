@@ -1,0 +1,57 @@
+package ds.global {
+    [Primitive]
+    final class QName {
+        const uri:String?;
+        const localName:String;
+
+        function QName(arg1:* = undefined, arg2:* = undefined) {
+            if (!isAbsent(arg2)) {
+                if (!isAbsent(arg1))
+                    uri = Namespace(arg1).uri;
+                localName = String(arg2);
+            }
+            else if (!isAbsent(arg1)) {
+                localName = String(arg1);
+                if (localName != '*')
+                    uri = getDefaultXMLNamespace().uri;
+            }
+            else localName = '';
+        }
+
+        override function toString():String {
+            var s = uri == '' ? '' : ((uri === undefined ? '*' : uri) + '::');
+            return s + localName;
+        }
+    }
+
+    final class XML {
+        native function filter(fn:Function):XMLList;
+
+        native Proxy function getProperty(name:*):*;
+        native Proxy function setProperty(name:*, value:*):void;
+        native Proxy function deleteProperty(name:*):Boolean;
+
+        native Proxy function getAttribute(name:*):*;
+        native Proxy function setAttribute(name:*, value:*):void;
+        native Proxy function deleteAttribute(name:*):Boolean;
+
+        native Proxy function getDescendants(name:QName):XMLList;
+
+        override native function toString():String;
+    }
+
+    final class XMLList {
+        native Proxy function getProperty(name:*):*;
+        native Proxy function setProperty(name:*, value:*):void;
+        native Proxy function deleteProperty(name:*):Boolean;
+    }
+
+    [AllowLiteral]
+    final class XMLSettings {
+        var ignoreComments = true;
+        var ignoreProcessingInstructions = true;
+        var ignoreWhitespace = true;
+        var prettyPrinting = true;
+        var prettyIndent = 2;
+    }
+}

@@ -1,0 +1,211 @@
+package ds.global {
+    class Array {
+        function Array(...values) {
+            if (values.length == 1 && typeof values[0] == 'number')
+                length = Number(values[0]) >>> 0;
+            else for each (var value in values) push(value);
+        }
+
+        native function get length():Number;
+        native function set length(value:Number):void;
+
+        native Proxy function getProperty(index:Number):*;
+        native Proxy function setProperty(index:Number, value:*):void;
+        native Proxy function deleteProperty(index:Number):Boolean;
+
+        Proxy function add(arg:Array):Array concat(arg);
+
+        Proxy function hasProperty(value:*):Boolean
+            indexOf(value) != -1;
+
+        function get isEmpty():Boolean
+            length == 0;
+
+        function get firstElement():* this[0];
+
+        function set firstElement(value:*):void {
+            this[0] = value;
+        }
+
+        function get lastElement():* isEmpty ? undefined : this[length - 1];
+
+        function set lastElement(value) {
+            this[isEmpty ? 0 : length - 1] = value;
+        }
+
+        Proxy function nextNameIndex(index:Number):Number
+            index < length ? index + 1 : NaN;
+
+        Proxy function nextValue(index:Number):*
+            this[index - 1];
+
+        function includes(value:*):Boolean
+            indexOf(value) != -1;
+
+        function concat(...arrays):Array {
+            var r = [];
+            for each (var element in this)
+                r.push(element);
+            for each (var array in arrays)
+                if (array is Array)
+                    for each (var element in Array(array))
+                        r.push(element);
+            return r;
+        }
+
+        function every(callback:Function, thisObject:* = null):Boolean {
+            if (thisObject)
+                for (var index = 0; index < length; ++index)
+                    if (!callback.apply(thisObject, [this[index], index, this]))
+                        return false;
+            else
+                for (var index = 0; index < length; ++index)
+                    if (!callback(this[index], index, this))
+                        return false;
+            return true;
+        }
+
+        function filter(callback:Function, thisObject:* = null):Array {
+            var r = [];
+            if (thisObject) {
+                for (var index = 0; index < length; ++index) {
+                    var item = this[index];
+                    if (callback.apply(thisObject, [item, index, this]))
+                        r.push(item);
+                }
+            }
+            else {
+                for (var index = 0; index < length; ++index) {
+                    var item = this[index];
+                    if (callback(item, index, this))
+                        r.push(item);
+                }
+            }
+            return r;
+        }
+
+        function forEach(callback:Function, thisObject:* = null):void {
+            if (thisObject)
+                for (var index:Number = 0; index < length; ++index)
+                    callback.apply(thisObject, [this[index], index, this]);
+            else
+                for (var index:Number = 0; index < length; ++index)
+                    callback(this[index], index, this);
+        }
+
+        function indexOf(searchElement:*, fromIndex:Number = 0):Number {
+            var index:Number = fromIndex;
+            index = index < 0 ? 0 : index >= length ? length : index;
+            for each (index in Range(index, length))
+                if (this[index] === searchElement)
+                    return index;
+            return -1;
+        }
+
+        function lastIndexOf(searchElement:*, fromIndex:Number = 0):Number {
+            var index:Number = fromIndex,
+                r:Array = [];
+            index = index < 0 ? 0 : index >= length ? length : index;
+            for each (index in Range(index, length))
+                if (this[index] === searchElement)
+                    r.push(index);
+            return r.isEmpty ? -1 : r.lastElement;
+        }
+
+        function join(sep:* = NaN):String {
+            var s = new CharArray;
+            sep = String(sep || ',');
+            if (!isEmpty) {
+                s.write(firstElement);
+                for each (var index:Number in Range(1, length))
+                    s.write(sep, this[index]);
+            }
+            return s.toString();
+        }
+
+        function map(callback:Function, thisObject:* = null):Array {
+            var r = [];
+            if (thisObject)
+                for (var index:Number = 0; index < length; ++index)
+                    r.push(callback.apply(thisObject, [this[index], index, this]));
+            else
+                for (var index:Number = 0; index < length; ++index)
+                    r.push(callback(this[index], index, this));
+            return r;
+        }
+
+        native function pop():*;
+
+        native function push(...arguments):Number;
+        private native function _pushValue(argument:*):Number;
+
+        native function insertAt(index:Number, value:*):Number;
+        native function removeAt(index:Number):*;
+
+        function reduce(fn:Function, initialValue:* = 0):* {
+            var v = initialValue;
+            for (var index = 0; index < length; ++index)
+                v = fn(v, this[i], i, this);
+            return v;
+        }
+
+        function reduceRight(fn:Function, initialValue:* = 0):* {
+            var v = initialValue;
+            for (var index = length; --index != -1;) v = fn(v, this[index], i, this);
+            return v;
+        }
+
+        function reverse():Array {
+            var r = [];
+            for each (var index:Number in Range(length - 1, -1)) r.push(this[index]);
+            return r;
+        }
+
+        function shift():* {
+            var r = firstElement;
+            if (!isEmpty) removeAt(0);
+            return r;
+        }
+
+        native function slice(startIndex:Number = 0, endIndex:Number = Infinity):Array;
+
+        function some(callback:Function, thisObject:* = null):Boolean {
+            if (thisObject)
+                for (var index:Number = 0; index < length; ++index)
+                    if (callback.apply(thisObject, [this[index], index, this]))
+                        return true;
+            else
+                for (var index:Number = 0; index < length; ++index)
+                    if (callback(this[index], index, this))
+                        return true;
+            return false;
+        }
+
+        native function sort(...sortBehavior):Array;
+
+        native function sortOn(fieldName:Object, options:SortOptions = undefined):Array;
+
+        native function splice(startIndex:Number, deleteCount:Number, ...values):Array;
+
+        override function toLocaleString():String {
+            var r = [];
+            for each (var item in this)
+                r.push(item === undefined ? 'undefined' : item === null ? 'null' : item.toLocaleString());
+            return r.join(',');
+        }
+
+        override function toString():String
+            join(',');
+
+        native function unshift(...arguments):Number;
+    }
+
+    [Flags]
+    enum SortOptions {
+        const CASE_INSENSITIVE;
+        const DESCENDING;
+        const UNIQUE_SORT;
+        const RETURN_INDEXED_ARRAY;
+        const NUMERIC;
+    }
+}

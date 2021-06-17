@@ -1,0 +1,79 @@
+package ds.global {
+    class Set {
+        private const _dict = new Map;
+
+        function Set() {
+        }
+
+        function addSets(...sets):Set {
+            for each (var s in sets) {
+                if (s is Set)
+                    for each (const v in Set(s))
+                        this.add(v);
+                else if (s is WeakSet)
+                    for each (const v in WeakSet(s))
+                        this.add(v);
+                else if (!isAbsent(s)) {
+                    for (const k in s)
+                        if (s[k]) this.add(k);
+                }
+            }
+            return this;
+        }
+
+        function add(value:*):Set {
+            _dict.set(value, true);
+            return this;
+        }
+        function delete(value:*):Boolean
+            _dict.delete(value);
+        function clear():void {
+            _dict.clear();
+        }
+        function has(value:*):Boolean _dict.has(value);
+
+        function get length():Number _dict.length;
+
+        Proxy function nextNameIndex(index:Number):Number _dict.Proxy::nextNameIndex(index);
+        Proxy function nextValue(index:Number):* _dict.Proxy::nextName(index);
+    }
+
+    class WeakSet {
+        private const _dict = new WeakMap;
+
+        function WeakSet() {
+        }
+
+        function addSets(...sets):WeakSet {
+            for each (var s in sets) {
+                if (s is Set)
+                    for each (const v in Set(s))
+                        this.add(v);
+                else if (s is WeakSet)
+                    for each (const v in WeakSet(s))
+                        this.add(v);
+                else if (!isAbsent(s)) {
+                    for (const k in s)
+                        if (s[k]) this.add(k);
+                }
+            }
+            return this;
+        }
+
+        function add(value:*):WeakSet {
+            _dict.set(value, true);
+            return this;
+        }
+        function delete(value:*):Boolean
+            _dict.delete(value);
+        function clear():void {
+            _dict.clear();
+        }
+        function has(value:*):Boolean _dict.has(value);
+
+        function get length():Number _dict.length;
+
+        Proxy function nextNameIndex(index:Number):Number _dict.Proxy::nextNameIndex(index);
+        Proxy function nextValue(index:Number):* _dict.Proxy::nextName(index);
+    }
+}

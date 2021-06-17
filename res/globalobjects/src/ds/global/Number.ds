@@ -1,0 +1,41 @@
+package ds.global {
+    [Primitive]
+    class BigInt {
+        native function BigInt(num:Object = 0);
+
+        native function toExponential(fractionDigits:Number):String;
+        native function toFixed(fractionDigits:Number):String;
+        native function toPrecision(precision:Number):String;
+        override native function toString(radix:Number = NaN):String;
+        override function valueOf():BigInt this;
+    }
+
+    [Primitive]
+    class Number {
+        static const MIN_VALUE = 5e-324;
+        static const MAX_VALUE = 1.7976931348623157e308;
+
+        native function Number(num:Object = 0);
+
+        native function toExponential(fractionDigits:Number):String;
+        native function toFixed(fractionDigits:Number):String;
+        native function toPrecision(precision:Number):String;
+        override native function toString(radix:Number = NaN):String;
+        override function valueOf():Number this;
+    }
+
+    [Primitive]
+    class Char {
+        static const MIN_VALUE:Char = 0;
+        static const MAX_VALUE:Char = 0x10ffff;
+
+        native function Char(num:Object = 0);
+
+        function getCategory():CharCategory
+            CharCategory.fromCharCode(this);
+
+        override function toString(radix:Number = NaN):String
+            radix == NaN ? String.fromCharCode(this) : Number(this).toString(radix);
+        override function valueOf():Char this;
+    }
+}

@@ -1,0 +1,124 @@
+package ds.octet {
+    enum Endian {
+        const LITTLE_ENDIAN;
+        const BIG_ENDIAN;
+    }
+    enum CompressionAlgorithm {
+        const DEFLATE;
+        const LZMA;
+        const ZLIB;
+    }
+
+    interface OctetStreamInput {
+        function get octetsAvailable():Number;
+
+        function get endian():Endian;
+        function set endian(endian);
+
+        function readOctets(dest:OctetArray, destPosition:Number = 0, length:Number = 0, position:Number = NaN):void;
+        function readFloat32(position:Number = NaN):Number;
+        function readFloat64(position:Number = NaN):Number;
+        function readUint8(position:Number = NaN):Number;
+        function readUint16(position:Number = NaN):Number;
+        function readUint32(position:Number = NaN):Number;
+        function readVarUint32(position:Number = NaN):Number;
+        function readInt8(position:Number = NaN):Number;
+        function readInt16(position:Number = NaN):Number;
+        function readInt32(position:Number = NaN):Number;
+        function readVarInt32(position:Number = NaN):Number;
+
+        /**
+         * @param length If `NaN`, the method will read the UTF string length as an unsigned variable-length 32-bit integer,
+         * otherwise the `length` value will be used to read the characters.
+         */
+        function readUTF(length:Number = NaN, position:Number = NaN):String;
+    }
+
+    interface OctetStreamOutput {
+        function get endian():Endian;
+        function set endian(endian);
+
+        function writeOctets(array:OctetArray, arrayPosition:Number = 0, length:Number = NaN, position:Number = NaN):void;
+        function writeFloat32(value:Number, position:Number = NaN):void;
+        function writeFloat64(value:Number, position:Number = NaN):void;
+        function writeUint8(value:Number, position:Number = NaN):void;
+        function writeUint16(value:Number, position:Number = NaN):void;
+        function writeUint32(value:Number, position:Number = NaN):void;
+        function writeVarUint32(value:Number, position:Number = NaN):void;
+        function writeInt8(value:Number, position:Number = NaN):void;
+        function writeInt16(value:Number, position:Number = NaN):void;
+        function writeInt32(value:Number, position:Number = NaN):void;
+        function writeVarInt32(value:Number, position:Number = NaN):void;
+
+        /**
+         * @param prependLength Whether to prepend length. If `true`, an unsigned variable-length 32-bit integer is written.
+         */
+        function writeUTF(value:String, prependLength:Boolean = true):void;
+    }
+
+    class OctetArray implements
+        OctetStreamInput, OctetStreamOutput
+    {
+        native function OctetArray();
+
+        native function get length():Number;
+        native function set length(length);
+
+        function get octetsAvailable():Number
+            length - position;
+
+        native function get position():Number;
+        native function set position(position);
+
+        native Proxy function getProperty(index:Number):Number;
+        native Proxy function setProperty(index:Number, value:Number):void;
+
+        native function get endian():Endian;
+        native function set endian(endian);
+
+        native function get shareable():Boolean;
+        native function set shareable(shareable);
+
+        function clear():void {
+            length = 0;
+            position = 0;
+        }
+
+        native function compress(algorithm:CompressionAlgorithm):void;
+        native function uncompress(algorithm:CompressionAlgorithm):void;
+
+        native function deflate():void;
+        native function inflate():void;
+
+        native function readOctets(dest:OctetArray, destPosition:Number = 0, length:Number = 0, position:Number = NaN):void;
+        native function readFloat32(position:Number = NaN):Number;
+        native function readFloat64(position:Number = NaN):Number;
+        native function readInt8(position:Number = NaN):Number;
+        native function readInt16(position:Number = NaN):Number;
+        native function readInt32(position:Number = NaN):Number;
+        native function readVarInt32(position:Number = NaN):Number;
+        native function readUint8(position:Number = NaN):Number;
+        native function readUint16(position:Number = NaN):Number;
+        native function readUint32(position:Number = NaN):Number;
+        native function readVarUint32(position:Number = NaN):Number;
+        native function readUTF(length:Number = NaN, position:Number = NaN):String;;
+
+        native function writeOctets(array:OctetArray, arrayPosition:Number = 0, length:Number = NaN, position:Number = NaN):void;
+        native function writeFloat32(value:Number, position:Number = NaN):void;
+        native function writeFloat64(value:Number, position:Number = NaN):void;
+        native function writeInt8(value:Number, position:Number = NaN):void;
+        native function writeInt16(value:Number, position:Number = NaN):void;
+        native function writeInt32(value:Number, position:Number = NaN):void;
+        native function writeVarInt32(value:Number, position:Number = NaN):void;
+        native function writeUint8(value:Number, position:Number = NaN):void;
+        native function writeUint16(value:Number, position:Number = NaN):void;
+        native function writeUint32(value:Number, position:Number = NaN):void;
+        native function writeVarUint32(value:Number, position:Number = NaN):void;
+        native function writeUTF(value:String, prependLength:Boolean = true):void;
+
+        native function toString():String;
+
+        function toJSON(key:String?):*
+            this.constructor.name;
+    }
+}

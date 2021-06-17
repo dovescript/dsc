@@ -1,0 +1,34 @@
+package ds.global {
+    class CharArray {
+        native function CharArray(utfBytesOrString:Object = '');
+
+        native function get length():Number;
+        native function set length(length);
+
+        native function get position():Number;
+        native function set position(position);
+
+        function get hasRemaining():Boolean
+            position != length;
+
+        native Proxy function getProperty(index:Number):Char;
+        native Proxy function setProperty(index:Number, value:Char):void;
+
+        native Proxy function nextNameIndex(index:Number):Number;
+        native Proxy function nextValue(index:Number):Char;
+
+        function readChar():Char {
+            var r = this[0];
+            if (hasRemaining) ++this.position;
+            return r;
+        }
+
+        native function write(...arguments):Number;
+        private native function _writeChar(arg:Char):Number;
+        private native function _writeString(arg:String):Number;
+
+        native function slice(fromIndex:Number, toIndex:Number = Infinity, absolute:Boolean = false):String;
+
+        native function toString():String;
+    }
+}

@@ -1,0 +1,11 @@
+package ds.global {
+    final class Function {
+        native function get length():Number;
+
+        native function apply(thisArg:*, argumentsList:Array):*;
+        native function call(thisArg:*, ...arguments):*;
+
+        function bind(thisArg:*, argumentsList:Array):Function
+            function() apply(thisArg, argumentsList);
+    }
+}

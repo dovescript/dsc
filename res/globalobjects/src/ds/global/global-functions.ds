@@ -1,0 +1,82 @@
+package ds.global {
+    native function trace(...arguments):void;
+
+    native function decodeURI(str:String):String;
+    native function decodeURIComponent(str:String):String;
+    native function encodeURI(str:String):String;
+    native function encodeURIComponent(str:String):String;
+
+    native function parseInt(str:String, radix:Number = NaN):Number;
+    native function parseFloat(str:String):Number;
+
+    /**
+     * Updates multiple `Observable` objects at once. This triggers only one
+     * subscriber of any of the `Observable` objects.
+     */
+    native function updateObservables(pairs:Array):void;
+
+    function isXMLName(str:String):Boolean {
+        if (!str)
+            return false;
+        var array = new CharArray(str);
+        if (!isXMLNCNameStart(array.readChar()))
+            return false;
+        while (array.hasRemaining) {
+            var cv = array.readChar();
+            if (!isXMLNCNamePart(cv))
+                return false;
+        }
+        return true;
+    }
+
+    internal function isXMLNCNameStart(cv:Char):Boolean
+        cv != '\x3a' && isXMLNameStart(cv);
+
+    internal function isXMLNCNamePart(cv:Char):Boolean
+        cv != '\x3a' && isXMLNamePart(cv);
+
+    internal function isXMLNameStart(cv:Char):Boolean
+        cv >= 0x61 && cv <= 0x7a       ||
+        cv >= 0x41 && cv <= 0x5a       ||
+        cv === 0x3a                    ||
+        cv === 0x5f                    ||
+        cv >= 0xc0 && cv <= 0xD6       ||
+        cv >= 0xd8 && cv <= 0xf6       ||
+        cv >= 0xf8 && cv <= 0x2ff      ||
+        cv >= 0x370 && cv <= 0x37d     ||
+        cv >= 0x37f && cv <= 0x1fff    ||
+        cv == 0x200c || cv == 0x200D   ||
+        cv >= 0x2070 && cv <= 0x218f   ||
+        cv >= 0x2c00 && cv <= 0x2fef   ||
+        cv >= 0x3001 && cv <= 0xd7ff   ||
+        cv >= 0xf900 && cv <= 0xfdcf   ||
+        cv >= 0xfdf0 && cv <= 0xfffd   ||
+        cv >= 0x10000 && cv <= 0xeffff;
+
+    internal function isXMLNamePart(cv:Char):Boolean
+        isXMLNameStart(cv)         ||
+        cv >= 0x30 && cv <= 0x39   ||
+        cv === 0x2d || cv === 0x2e ||
+        cv === 0xb7 || cv >= 0x0300 && cv <= 0x036f ||
+        cv >= 0x203f && cv <= 0x2040;
+
+    internal native function getDefaultXMLNamespace():Namespace;
+
+    function isFinite(num:Number):Boolean
+        num != -Infinity && num != Infinity;
+    function isNaN(num:Number):Boolean
+        num == NaN;
+
+    /**
+     * Determines whether value is at absence of object. This function
+     * determines whether value is `undefined` or `null`.
+     */
+    function isAbsent(value:*):Boolean
+        value === null || value === undefined;
+    /**
+     * Determines whether value is not at absence of object. This function
+     * determines whether value is neither of `undefined` and `null`.
+     */
+    function isObject(value:*):Boolean
+        !isAbsent(value);
+}

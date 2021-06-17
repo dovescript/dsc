@@ -1,0 +1,9 @@
+package ds.global {
+    [TypeConfig(primitive=true)]
+    final class Boolean {
+        native function Boolean(expression:Object = false);
+
+        override function toString():String this ? 'true' : 'false';
+        override function valueOf():Boolean this;
+    }
+}

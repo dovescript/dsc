@@ -1,0 +1,6 @@
+package ds.global {
+    final class JSON {
+        static native function parse(str:String, reviver:Function? = null):*;
+        static native function stringify(str:String, replacer:* = null, space:* = null):String;
+    }
+}

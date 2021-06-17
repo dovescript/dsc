@@ -1,0 +1,23 @@
+package ds.global {
+    dynamic class Object {
+        function Object() {
+        }
+
+        static function assign(target:Object, ...objects):void {
+            for each (var obj in objects)
+                if (obj)
+                    for (var name in obj as *)
+                        target[name] = obj[name];
+        }
+
+        native function get constructor():Class;
+
+        function toString():String
+            '[object ' + constructor.name + ']';
+
+        function toLocaleString():String
+            toString();
+
+        function valueOf():* this;
+    }
+}

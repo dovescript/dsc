@@ -1,0 +1,30 @@
+/**
+ * @hidden
+ */
+package ds.internals {
+    enum InternalErrors {
+        /**
+         * Out of bounds error. Receives `position` and `length` variables.
+         */
+        const OUT_OF_BOUNDS = 0x800;
+        const WRONG_PARAM_TYPE;
+        const XML_PREFIX_MUST_BE_EMPTY;
+        /**
+         * Illegal constructor. Receives `name` variable.
+         */
+        const ILLEGAL_CONSTRUCTOR;
+        /**
+         * LocaleMap does not have default Locale object.
+         */
+        const NO_DEFAULT_LOCALE;
+        /**
+         * Base LocaleMap does not support supplied locale. Receives `localeId`.
+         */
+        const UNSUPPORTED_LOCALE;
+
+        static function throwError(constant:InternalErrors, errorClass:Class, variables:* = undefined):void
+            constant.throwError(errorClass, variables);
+
+        native function throwError(errorClass:Class, variables:* = undefined):void;
+    }
+}
